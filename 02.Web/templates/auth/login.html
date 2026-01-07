@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEEOK 관리 페이지</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/login.css') }}">
+</head>
+<body>
+    <div class="login-box">
+        <h2>BEEOK 접속</h2>
+        <p>로그인해 주세요.</p>
+        
+        <form method="POST">
+            <div>
+                <label for="login_id">ID</label><br>
+                <input type="text" id="login_id" name="login_id" required>
+            </div>
+            <br>
+            <div>
+                <label for="password">PASSWORD</label><br>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <br>
+            <button type="submit">log in</button>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul style="color: red; list-style: none; padding-left: 0;">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
