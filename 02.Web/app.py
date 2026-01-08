@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask, redirect, url_for
 from extensions import db, login_manager, migrate
 from auth import auth_bp
+from routes.dashboard import dashboard_bp
 from models import User
 
 
@@ -36,16 +37,18 @@ def create_app():
 
     # 로그인
     app.register_blueprint(auth_bp)
+    app.register_blueprint(dashboard_bp)
 
+
+    # -------------------
+    # 화면 띄우기 추가
+    # -------------------
+
+# dashboard 띄우기 로그인 안되면 로그인 페이지로, 로그인 성공 후 대시보드로
     @app.route('/')
     def index():
         return redirect(url_for('auth.login'))
     
-    # 1. 로그인 성공 후 대시보드로 이동
-    @app.route('/dashboard')
-    def dashboard():
-        return "<h1>로그인 성공</h1>"
-
     return app
     # -------------------
     # 실행

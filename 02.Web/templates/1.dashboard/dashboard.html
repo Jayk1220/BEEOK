@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/1.dashboard/dashboard.css') }}">
+
+<div class="dashboard-wrapper">
+    
+    <section class="realtime-row">
+        <div class="status-box">
+            <span class="label">🐝 전체 벌통 수</span>
+            <span class="value">{{ hive.TOTAL_HIVE }}개</span>
+        </div>
+        <div class="status-box warning">
+            <span class="label">🚨 상태 이상 벌통</span>
+            <span class="value">{{ hive.PROBLEM }}개</span>
+        </div>
+        <div class="status-box info">
+            <span class="label">📅 조회 대상</span>
+            <span class="value">{{ select_year }}년 {{ select_month }}월</span>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <form action="{{ url_for('dashboard.dashboard') }}" method="get" class="filter-form" id="filterForm">
+            <div class="select-group">
+                <label>연도 선택</label>
+                <select name="year" onchange="this.form.submit()">
+                    {% for y in range(now_year-2, now_year+1) %}
+                    <option value="{{ y }}" {{ 'selected' if y == select_year }}>{{ y }}년</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="select-group">
+                <label>월 선택</label>
+                <select name="month" onchange="this.form.submit()">
+                    <option value="전체" {{ 'selected' if select_month == '전체' }}>전체</option>
+                    {% for m in range(1, 13) %}
+                    <option value="{{ m }}" {{ 'selected' if m|string == select_month }}>{{ m }}월</option>
+                    {% endfor %}
+                </select>
+            </div>
+            </form>
+    </section>
+
+    <div class="main-layout-grid">
+        
+        <aside class="panel side-panel">
+            <div class="panel-header">
+                <h3>⏳ 미완료 주문 ({{ total.ORDER_QTY }}건)</h3>
+            </div>
+            <div class="panel-body scrollable">
+                <table class="list-table">
+                    <thead>
+                        <tr><th>주문번호</th><th>현재상태</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for o in orders %}
+                        <tr>
+                            <td>{{ o.ORDER_ID }}</td>
+                            <td><span class="status-badge">{{ o.STATUS }}</span></td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="2" class="no-data">진행 중인 주문이 없습니다.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+
+        <main class="panel center-main">
+            <div class="panel-header">
+                <h3>📈 매출 추이 (총 {{ "{:,.0f}".format(total.TOTAL_SALES) }}원)</h3>
+            </div>
+            <div class="panel-body chart-box">
+                <canvas id="salesChart"></canvas>
+            </div>
+        </main>
+
+        <aside class="panel side-panel">
+            <div class="panel-header">
+                <h3>🏆 인기 상품 TOP 5</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="ranking-list">
+                    {% for r in rankings %}
+                    <li>
+                        <span class="rank">{{ loop.index }}</span>
+                        <span class="name">{{ r.PRODUCT_NAME }}</span>
+                        <span class="qty">{{ r.TOTAL_QTY }}개</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    
+    const labels = [{% for g in graph %}"{{ g.DAY }}일",{% endfor %}];
+    const salesData = [{% for g in graph %}{{ g.DAILY_SALES }},{% endfor %}];
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '일별 매출액(원)',
+                data: salesData,
+                borderColor: '#f39c12',
+                backgroundColor: 'rgba(243, 156, 18, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+{% endblock %}

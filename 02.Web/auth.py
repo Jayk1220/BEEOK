@@ -11,7 +11,7 @@ auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 def login():
     # 로그인 된 상태 --> dashboard 보내기
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboard.dashboard'))
     
     # 로그인 버튼 눌렀을 경우
     if request.method == 'POST':
@@ -23,8 +23,8 @@ def login():
         
         # 비밀번호 대조 ==> 암호화는 하지 않음
         if user and user.password == password:
-            login_user(user) #true면 login
-            return redirect(url_for('dashboard')) #dashboard로 보내기
+            login_user(user, remember=True) #true면 login
+            return redirect(url_for('dashboard.dashboard')) #dashboard로 보내기
         
         else: # 실패시
             flash('아이디 또는 비밀번호를 다시 확인해주세요.')

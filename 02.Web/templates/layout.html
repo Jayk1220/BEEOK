@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEEOK 관리 시스템</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+</head>
+<body>
+    <header id="header">
+        <div class="header-container">
+            <h1 class="logo">
+                <a href="{{url_for('dashboard.dashboard')}}">
+                    <img src="{{url_for('static',filename='img/logo.png')}}"alt="BEEOK logo"style="height: 40px; vertical-align: middle; margin-right: 10px;">
+                통합 관리 시스템</a>
+            </h1>
+            <nav class="nav-menu">
+                <a href=#>제품 관리</a> 
+                <a href=#>주문 관리</a> 
+                <a href=#>고객 관리</a> 
+                <a href=#>벌통 관리</a> 
+                <a href="{{ url_for('auth.logout') }}" class="logout-link">로그아웃</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer id="footer">
+        <div class="footer-container">
+            <hr class="footer-divider">
+
+            <div id="info">
+                <div class="info-row">
+                    <span><strong>대표자</strong> : 김호겸</span>
+                    <span><strong>대표번호</strong> : <a href="tel:010-4100-3244">010-4100-3244</a></span>
+                    <span><strong>개인정보보호책임</strong> : <a href="mailto:hktop@hanmail.net">hktop@hanmail.net</a></span>
+                </div>
+
+                <div class="info-row">
+                    <span><strong>주소</strong> : 경기도 남양주시 양정로 76</span>
+                </div>
+
+                <div class="info-row">
+                    <span><strong>사업자등록번호</strong> : 811-66-00105</span>
+                    <span><strong>통신판매번호</strong> : 제2018-금곡양정-77호</span>
+                </div>
+
+                <p class="copyrights">
+                    Copyright &copy; <strong>BEEOK Corp.</strong> All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
