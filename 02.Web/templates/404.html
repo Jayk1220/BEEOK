@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container text-center" style="padding: 100px 20px;">
+    <div class="error-template">
+        <h1 style="font-size: 100px; color: #f39c12;">404</h1>
+        <h2 class="mb-4">요청하신 페이지를 찾을 수 없습니다.</h2>
+        <div class="error-details mb-5">
+            주소가 올바르지 않습니다.<br>
+            입력하신 정보를 다시 한번 확인해 주세요! 
+        </div>
+        <div class="error-actions">
+            <a href="/" class="btn btn-warning btn-lg text-white">
+                <i class="bi bi-house-door"></i> 홈으로 돌아가기
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
