@@ -1,11 +1,12 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, request, jsonify
+from flask_login import login_required
 from extensions import db, login_manager, migrate
 from auth import auth_bp
-from routes.dashboard import dashboard_bp
 from models import User
-
+from routes.dashboard import dashboard_bp
+from routes.chatbot import chatbot_bp
 
 load_dotenv('../.env')
 def create_app():
@@ -38,6 +39,7 @@ def create_app():
     # 로그인
     app.register_blueprint(auth_bp)
     app.register_blueprint(dashboard_bp)
+    app.register_blueprint(chatbot_bp)
 
 
     # -------------------
@@ -48,8 +50,8 @@ def create_app():
     @app.route('/')
     def index():
         return redirect(url_for('auth.login'))
-    
-    return app
+
+    return app    
     # -------------------
     # 실행
     # -------------------

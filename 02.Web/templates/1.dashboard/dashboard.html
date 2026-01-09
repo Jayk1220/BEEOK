@@ -15,8 +15,8 @@
             <span class="value">{{ hive.PROBLEM }}개</span>
         </div>
         <div class="status-box info">
-            <span class="label">📅 조회 대상</span>
-            <span class="value">{{ select_year }}년 {{ select_month }}월</span>
+            <span class="label">📅 추가 내용</span>
+            <span class="value">추가 내용</span>
         </div>
     </section>
 
@@ -78,7 +78,25 @@
 
         <aside class="panel side-panel">
             <div class="panel-header">
-                <h3>🏆 인기 상품 TOP 5</h3>
+                <h3>🏆 제품별 판매량 </h3>
+            </div>
+            <div class="panel-body scrollable">
+                <table class="list-table">
+                    <thead>
+                        <tr><th>제품명</th><th>판매량</th><th>매출액</th></tr>
+                    </thead>
+                    <tbody>
+                        {% for p in product %}
+                        <tr>
+                            <td>{{ p.product_name }}</td>
+                            <td>{{ p.TOTAL_QTY }}</span></td>
+                            <td>{{"{:,.0f}".format(p.TOTAL_SALES)}}원</td>
+                        </tr>
+                        {% else %}
+                        <tr><td colspan="2" class="no-data">판매 내역이 없습니다.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
             <div class="panel-body">
                 <ul class="ranking-list">

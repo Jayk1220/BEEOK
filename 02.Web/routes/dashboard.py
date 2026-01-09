@@ -38,8 +38,8 @@ def dashboard():
             # 이상 벌집 갯수(hive STATUS) 
     hive_status_sql = """
         SELECT 
-            COUNT(DISTINCT HIVE_ID) AS TOTAL_HIVE, -- 전체 벌통 수
-            SUM(CASE WHEN STATUS_ID = 1 THEN 0 ELSE 1 END) AS PROBLEM -- 상태이상
+            COALESCE(COUNT(DISTINCT HIVE_ID),0) AS TOTAL_HIVE, -- 전체 벌통 수
+            COALESCE(SUM(CASE WHEN STATUS_ID = 1 THEN 0 ELSE 1 END),0) AS PROBLEM -- 상태이상
         FROM HIVE_STATUS_LOG
         WHERE (HIVE_ID, TIME) IN (
             SELECT HIVE_ID, MAX(TIME) AS TIME
@@ -66,8 +66,8 @@ def dashboard():
         """
     if select_month != '전체':
         order_qty_sql += " AND MONTH(DATE) = %s"
-        cursor.execute(order_qty_sql, params)
-        total_data = cursor.fetchone()
+    cursor.execute(order_qty_sql, params)
+    total_data = cursor.fetchone()
     
 
     # 왼쪽 (주문 관련)
@@ -87,7 +87,9 @@ def dashboard():
 
     # 오른쪽 (이번달 판매 제품 순위)
     product_sql = """
-    SELECT P.PRODUCT_NAME, SUM(OD.AMOUNT) AS TOTAL_QTY
+    SELECT 
+        P.PRODUCT_NAME, SUM(OD.AMOUNT) AS TOTAL_QTY,
+        IFNULL(SUM(OD.AMOUNT * OD.PRICE),0) AS PRODUCT_SALES
     FROM ORDER_DETAIL OD
     JOIN PRODUCT P ON OD.PRODUCT_ID = P.PRODUCT_ID
     JOIN ORDERS O ON OD.ORDER_ID = O.ORDER_ID
