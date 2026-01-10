@@ -1,0 +1,147 @@
+/* 제품 관리 시스템 전용 스타일 (통합 테마 반영) */
+
+.product-wrapper { 
+    padding: 30px; 
+    background-color: var(--bg-light);
+}
+
+/* 상단 헤더 영역 */
+.page-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+}
+
+.page-header h2 {
+    font-weight: 800;
+    color: var(--main-dark);
+    margin: 0;
+}
+
+/* 새 제품 등록 버튼 (꿀벌 노란색 테마) */
+.btn-add { 
+    background-color: var(--main-color); 
+    color: var(--main-dark); 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.btn-add:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* 검색 섹션 (대시보드 필터 스타일 반영) */
+.search-section { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 12px; 
+    margin-bottom: 30px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+}
+
+.search-form { 
+    display: grid; 
+    grid-template-columns: 1.5fr 1.5fr 1fr auto; 
+    gap: 20px; 
+    align-items: end; 
+}
+
+.search-group { display: flex; flex-direction: column; gap: 8px; }
+.search-group label { 
+    font-size: 0.9rem; 
+    font-weight: 700; 
+    color: var(--main-dark); 
+}
+
+.search-input, .search-select { 
+    padding: 10px 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    width: 100%; 
+    font-size: 0.95rem;
+}
+
+/* 검색 버튼 (헤더/버튼용 진한 회색 테마) */
+.btn-search {
+    padding: 11px 30px; 
+    border: none; 
+    background: var(--main-dark); 
+    color: white; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-search:hover {
+    background: #000;
+}
+
+/* 테이블 스타일 (패널 스타일 반영) */
+.product-table-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.product-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+.product-table th { 
+    background-color: #fafafa; 
+    color: var(--main-dark); 
+    padding: 15px; 
+    text-align: center; 
+    font-weight: 700;
+    border-bottom: 2px solid var(--main-color); /* 꿀벌 포인트 */
+}
+
+.product-table td { 
+    padding: 15px; 
+    border-bottom: 1px solid #eee; 
+    text-align: center; 
+    color: var(--text-dark);
+}
+
+/* 상태 배지 (ENUM 기반 디자인) */
+.status-badge { 
+    padding: 5px 10px; 
+    border-radius: 20px; 
+    font-size: 0.8rem; 
+    font-weight: 700; 
+}
+
+/* 판매중: 노란색 테마 활용 */
+.status-active { 
+    background-color: #fff9db; 
+    color: #f08c00; 
+    border: 1px solid #ffe066;
+}
+
+/* 단종: 회색 테마 활용 */
+.status-discontinued { 
+    background-color: #f1f3f5; 
+    color: #868e96; 
+}
+
+.category-badge { 
+    background: #f8f9fa; 
+    padding: 4px 10px; 
+    border-radius: 6px; 
+    font-size: 0.85rem; 
+    color: #636e72;
+    border: 1px solid #e9ecef;
+}
+
+/* 관리 버튼들 */
+.btn-edit { color: #3498db; text-decoration: none; font-weight: 600; margin-right: 15px; }
+.btn-delete { color: #e74c3c; text-decoration: none; font-weight: 600; }

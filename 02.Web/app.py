@@ -8,6 +8,7 @@ from models import User
 from routes.dashboard import dashboard_bp
 from routes.chatbot import chatbot_bp
 from routes.product import product_bp
+from routes.customer import customer_bp
 
 load_dotenv('../.env')
 def create_app():
@@ -44,6 +45,7 @@ def create_app():
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(chatbot_bp)
     app.register_blueprint(product_bp)
+    app.register_blueprint(customer_bp)
 
     # -------------------
     # 화면 띄우기 추가

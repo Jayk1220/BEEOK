@@ -1,0 +1,55 @@
+/* 1. 레이아웃 기본 설정 */
+.product-wrapper {
+    padding: 2rem;
+    background-color: #f8f9fa; /* 연한 회색 배경으로 가독성 확보 */
+    border-radius: 12px;
+    min-height: 80vh;
+}
+
+/* 2. 상단 타이틀 영역 스타일 */
+.page-header {
+    border-bottom: 2px solid #343a40; /* 시각적 구분을 위한 두꺼운 선 */
+    padding-bottom: 1.5rem;
+}
+
+/* 3. 카드형 UI 컴포넌트 */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* 미세한 그림자로 입체감 부여 */
+}
+
+/* 4. 금융 데이터 아이템 (Flex박스를 이용한 좌우 정렬) */
+.finance-item {
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between; /* 라벨은 왼쪽, 값은 오른쪽 */
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed #dee2e6;
+}
+
+/* 5. 마진(수익) 강조 섹션 */
+.margin-section {
+    background-color: #e7f1ff; /* 강조를 위한 파란색 계열 배경 */
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* 6. AI 메모 영역 (텍스트 가독성 최적화) */
+.memo {
+    line-height: 1.6;
+    color: #444;
+    white-space: pre-wrap; /* DB의 줄바꿈을 화면에 그대로 반영 */
+}
+
+/* 7. 반응형 디자인 (모바일 대응) */
+@media (max-width: 768px) {
+    .product-wrapper {
+        padding: 1rem;
+    }
+    .header_right {
+        text-align: left !important;
+        margin-top: 1rem;
+    }
+}
