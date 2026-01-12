@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/4.customer/customer_registration.css') }}">
+
+<div class="reg-wrapper">
+    <div class="page-header">
+        <h2><i class="bi bi-person-plus-fill me-2"></i>신규 고객 등록</h2>
+        <a href="{{ url_for('customer.list_customer') }}" class="btn-back">
+            <i class="bi bi-arrow-left"></i> 목록으로 돌아가기
+        </a>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert-banner">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <section class="form-section">
+        <form action="{{ url_for('customer.customer_registration') }}" method="POST" class="reg-form">
+            
+            <div class="form-grid">
+                <div class="form-card">
+                    <h3 class="card-title">기본 정보</h3>
+                    
+                    <div class="input-group">
+                        <label>고객 ID <span class="required">*</span></label>
+                        <input type="text" name="customer_id" required placeholder="예: CUST-001">
+                    </div>
+
+                    <div class="input-group">
+                        <label>상호명 (기업명)</label>
+                        <input type="text" name="company_name" placeholder="상호명이 없을 경우 담당자명으로 대체됨">
+                    </div>
+
+                    <div class="input-group">
+                        <label>사업자 번호</label>
+                        <input type="text" name="business_no" placeholder="000-00-00000">
+                    </div>
+
+                    <div class="input-group-row">
+                        <div class="input-group">
+                            <label>담당자 성함 <span class="required">*</span></label>
+                            <input type="text" name="contact_person" required placeholder="홍길동">
+                        </div>
+                        <div class="input-group">
+                            <label>구분 <span class="required">*</span></label>
+                            <select name="class">
+                                {% for c in class_list %}
+                                <option value="{{ c }}">{{ c }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3 class="card-title">결제 정보</h3>
+                    <div class="input-group">
+                        <label>은행명</label>
+                        <input type="text" name="bank" placeholder="예: 국민은행">
+                    </div>
+                    <div class="input-group">
+                        <label>계좌번호</label>
+                        <input type="text" name="account_no" placeholder="000-0000-0000-00">
+                    </div>
+                    <div class="input-group">
+                        <label>예금주</label>
+                        <input type="text" name="account_name" placeholder="성함 또는 법인명">
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h3 class="card-title">연락처 및 주소</h3>
+                    
+                    <div class="input-group">
+                        <label>연락처 (전화/HP) <span class="required">*</span></label>
+                        <input type="text" name="contact" required placeholder="010-0000-0000">
+                    </div>
+
+                    <div class="input-group">
+                        <label>이메일</label>
+                        <input type="email" name="email" placeholder="example@email.com">
+                    </div>
+
+                    <div class="input-group">
+                        <label>국가</label>
+                        <input type="text" name="country" value="한국">
+                    </div>
+
+                    <div class="input-group">
+                        <label>상세 주소</label>
+                        <textarea name="address" rows="2" placeholder="주소를 입력하세요"></textarea>
+                    </div>
+                </div>
+
+
+
+                <div class="form-card">
+                    <h3 class="card-title">기타 참고사항</h3>
+                    <div class="input-group">
+                        <label>메모</label>
+                        <textarea name="memo" rows="5" placeholder="특이사항을 입력하세요"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="{{ url_for('customer.list_customer') }}" class="btn-back-link">등록 취소</a>
+                <button type="reset" class="btn-reset">입력 초기화</button>
+                <button type="submit" class="btn-submit">고객 정보 저장하기</button>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}

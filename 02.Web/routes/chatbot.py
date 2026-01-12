@@ -40,3 +40,48 @@ def chat_api():
     
     # 결과를 다시 브라우저로 전송
     return jsonify({"reply": bot_response})
+
+
+
+# ------------------------------------------
+#  내부 데이터 처리 (메모 요약, 어제 하루 요약)
+# ------------------------------------------
+
+def customer_summary(customer_id):
+    """AI reads memos and summarizes them.
+    analyze each customer's purchase history and summarize it.
+    """
+
+    # 메모 가져오기
+    with engine.connect() as conn:
+        # SQL
+        memo_query = text("SELECT MEMO_TEXT FROM CUSTOMER_MEMO WHERE CUSTOMER_ID = :cid ORDER BY DATE DESC")
+        memos = conn.execute(memo_query, {"cid": customer_id}).fetchall()
+        memo_context = "\n".join([f"- {m[0]}" for m in memos])
+
+    # 구매 패턴 분석
+
+    # AI prompt
+    prompt = f"""
+    you are a professional assistant who is in charge of customer management.
+    review following memos and purchase history of a customer and analyze it.
+    the user only speaks Korean so please answer in korean.
+
+    [memos]: {memo_context}
+    [purchase history]: {p_context}
+    
+    summary:
+    """
+    response = ollama.chat(model='exaone3.5:7.8b', messages=[{'role': 'user', 'content': prompt}])
+    summary = response['message']['content'].strip()
+    
+    # DB update
+    with engine.begin() as update_conn:
+        update_conn.execute(text("""
+            UPDATE CUSTOMER SET MEMO = :summary, SUMMARY_TIME = CURRENT_TIMESTAMP WHERE CUSTOMER_ID = :cid
+        """), {"summary": summary, "cid": customer_id})
+# ------------------------------------------
+#  RAG
+# ------------------------------------------
+
+

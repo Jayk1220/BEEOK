@@ -1,0 +1,161 @@
+/* 1. 배경 및 래퍼 */
+.reg-wrapper { 
+    padding: 40px 20px; 
+    background-color: #f4f7f6; /* 약간의 회색톤 배경이 흰색 창을 돋보이게 합니다 */
+    min-height: 100vh;
+}
+
+/* 2. 전체를 감싸는 하나의 통합 창 */
+.form-section {
+    max-width: 1000px; /* 너무 넓지 않게 조정하여 가독성 향상 */
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px; /* 더 부드러운 곡선 */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06); /* 깊이감 있는 그림자 */
+    border: 1px solid #e9ecef;
+    overflow: hidden; /* 내부 요소가 모서리를 뚫지 않게 함 */
+}
+
+/* 3. 내부 그리드 레이아웃 */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-areas: 
+        "main payment"
+        "contact payment"
+        "full full";
+    padding: 40px;
+    gap: 40px; /* 섹션 간 충분한 여백 */
+}
+
+/* 4. 개별 섹션(카드) 스타일 초기화 */
+.form-card {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    height: fit-content;
+}
+
+/* 영역 할당 */
+.card-main { grid-area: main; }
+.card-payment { grid-area: payment; }
+.card-contact { grid-area: contact; }
+.card-full { grid-area: full; }
+
+/* 5. 섹션 제목 (세련된 포인트) */
+.card-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f8f9fa; /* 은은한 구분선 */
+}
+
+.card-title::before {
+    content: '';
+    width: 4px;
+    height: 16px;
+    background-color: var(--main-color, #4dabf7); /* 메인 컬러 포인트 */
+    border-radius: 10px;
+}
+
+/* 6. 입력창 스타일 강화 */
+.input-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+.input-group-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+.input-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #495057;
+}
+
+.input-group input, .input-group select, .input-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--main-color, #4dabf7);
+    box-shadow: 0 0 0 4px rgba(77, 171, 247, 0.1);
+    outline: none;
+}
+
+/* 7. 하단 통합 버튼 영역 (Action Bar) */
+.form-actions {
+    background-color: #f8f9fa; /* 버튼 영역 배경색 차별화 */
+    padding: 25px 40px;
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid #eee;
+}
+
+/* 등록 취소 (링크 타입) */
+.btn-back-link {
+    text-decoration: none;
+    color: #868e96;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+.btn-back-link:hover { color: #343a40; }
+
+/* 입력 초기화 버튼 */
+.btn-reset {
+    background-color: white;
+    color: #adb5bd;
+    border: 1px solid #dee2e6;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-reset:hover {
+    background-color: #f1f3f5;
+    color: #495057;
+    border-color: #ced4da;
+}
+
+/* 저장 버튼 */
+.btn-submit {
+    background-color: #212529; /* 다크 테마 */
+    color: white;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+}
+.btn-submit:hover {
+    background-color: #000;
+    transform: translateY(-1px);
+}
+
+/* 모바일 대응 */
+@media (max-width: 992px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas: "main" "contact" "payment" "full";
+        padding: 30px 20px;
+    }
+    .form-actions {
+        flex-direction: column-reverse; /* 모바일에선 버튼을 세로로 */
+        padding: 20px;
+    }
+    .btn-submit, .btn-reset, .btn-back-link { width: 100%; text-align: center; }
+}

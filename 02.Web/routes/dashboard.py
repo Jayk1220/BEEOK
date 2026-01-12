@@ -18,8 +18,13 @@ def dashboard():
     now = datetime.now()
     now_year = now.year
     now_month = now.month
+    now_day = now.day  
     
-    #2. 선택 연월
+    #2. 요일
+    weekdays = ['일', '월', '화', '수', '목', '금', '토']
+    now_weekday = weekdays[now.weekday()]
+
+    #3. 선택 연월
     select_year = request.args.get('year',default=now_year,type=int)
     select_month = request.args.get('month',default=str(now_month)) #'전체' 월 있음
 
@@ -111,11 +116,14 @@ def dashboard():
 
 
     return render_template('1.dashboard/dashboard.html',
+                            now_year=now_year,
+                            now_month=now_month, 
+                            now_day=now_day,
+                            now_weekday=now_weekday,
                             hive=hive_status,      # 실시간 벌통 정보
                             total=total_data,      # 상단 매출/건수 요약
                             orders=orders,         # 왼쪽 미완료 주문 목록
                             rankings=rankings,     # 오른쪽 인기 상품 TOP 5
                                                    # 가운데 그래프용 데이터
-                            now_year=now_year,     # 날짜 선택기용
                             select_year=select_year,
                             select_month=select_month)
