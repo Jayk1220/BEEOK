@@ -1,0 +1,108 @@
+/* 제품 등록 페이지 - 메인 테마 통일 버전 */
+
+:root {
+    --main-color: #f7b500;      /* 꿀벌 노란색 */
+    --main-dark: #212529;       /* 진한 회색 */
+    --bg-light: #f8f9fa;        /* 배경색 */
+    --text-dark: #2d3436;
+    --border-color: #eee;
+}
+
+/* 컨테이너 및 카드 */
+.product-reg-container {
+    margin-top: 40px;
+    margin-bottom: 60px;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+}
+
+.card-registration {
+    border: 1px solid var(--border-color);
+    border-radius: 20px; /* 챗봇 창과 동일한 곡률 */
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05); /* 챗봇 스타일 그림자 */
+}
+
+/* 헤더: 메인 다크 컬러 적용 */
+.card-registration .card-header {
+    background-color: var(--main-dark) !important;
+    color: white !important;
+    padding: 20px 25px;
+    border-bottom: 2px solid var(--main-color); /* 포인트 라인 */
+}
+
+/* 입력 필드 및 라벨 */
+.form-label-custom {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    padding: 10px 15px;
+    transition: all 0.2s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--main-color);
+    box-shadow: 0 0 0 0.25 margin rgba(247, 181, 0, 0.25);
+}
+
+/* 구분선 */
+.form-divider {
+    margin: 30px 0;
+    border-top: 1px solid var(--border-color);
+    opacity: 1;
+}
+
+/* 이미지 미리보기 영역 (챗봇 말풍선 느낌) */
+.image-preview-wrapper {
+    margin-top: 15px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 18px;
+    background-color: #f1f3f5; /* 챗봇 배경색과 통일 */
+    border: 1px solid #e9ecef;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 280px;
+    display: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 하단 버튼 영역 */
+.form-actions {
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-reg-cancel {
+    border-radius: 10px;
+    padding: 10px 25px;
+    font-weight: 500;
+    color: #636e72;
+    border: 1px solid #dee2e6;
+    background: white;
+}
+
+.btn-reg-submit {
+    border-radius: 10px;
+    padding: 10px 40px;
+    font-weight: 700;
+    background-color: var(--main-color) !important;
+    border: none !important;
+    color: #000 !important;
+    transition: transform 0.2s;
+}
+
+.btn-reg-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(247, 181, 0, 0.3);
+}

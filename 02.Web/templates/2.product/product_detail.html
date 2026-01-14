@@ -15,7 +15,7 @@
             <div class="mt-2">
                 <a href="{{ url_for('product.list_product') }}" class="btn btn-sm btn-outline-secondary">목록으로</a>
                 <a href="#" class="btn btn-sm btn-outline-primary">정보 수정</a>
-                <a href="#" class="btn btn-sm btn-danger" onclick="return confirm('데이터가 영구 삭제됩니다. 계속하시겠습니까?')">제품 삭제</a>
+                <a href="{{ url_for('product.delete_product', product_id=product.PRODUCT_ID) }}" class="btn btn-sm btn-danger" onclick="return confirm('데이터가 영구 삭제됩니다. 계속하시겠습니까?')">제품 삭제</a>
             </div>
         </div>
     </div>

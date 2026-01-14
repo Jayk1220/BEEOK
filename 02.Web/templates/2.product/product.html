@@ -2,7 +2,19 @@
 
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/2.product/product.css') }}">
-
+<div class="container mt-3">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-primary alert-dismissible fade show auto-dismiss shadow-sm" role="alert">
+            <i class="bi bi-info-circle me-2"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</div>
 <div class="product-wrapper">
     <div class="page-header">
         <h2>📦 제품 관리 시스템</h2>
@@ -53,7 +65,7 @@
                 {% for p in products %}
                 <tr>
                     <td><code>{{ p.PRODUCT_ID }}</code></td>
-                    <td style="text-align: left; padding-left: 20px;">
+                    <td style="text-align: center; padding-left: 20px;">
                         <a href="{{ url_for('product.product_detail', product_id=p.PRODUCT_ID) }}" class="product-name-link">
                             <strong>{{ p.PRODUCT_NAME }}</strong>
                         </a>
@@ -68,7 +80,7 @@
                     <td>
                         <div class="action-buttons">
                             <a href="{{ url_for('product.product_detail', product_id=p.PRODUCT_ID) }}" class="btn-edit">상세</a>
-                            <a href="#" class="btn-delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+                            <a href="{{ url_for('product.delete_product', product_id=p.PRODUCT_ID) }}" class="btn-delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                         </div>
                     </td>
                 </tr>

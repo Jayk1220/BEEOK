@@ -40,7 +40,7 @@ CREATE TABLE CUSTOMER(
   MEMO           TEXT                                NULL,
   SUMMARY_TIME   TIMESTAMP                           NULL,
   STATUS         ENUM('ACTIVE','DORMANT','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
-  CLASS          ENUM('CUSTOMER', 'VENDER')          NOT NULL DEFAULT 'CUSTOMER' COMMENT '고객 OR 생산',
+  CLASS          ENUM('CUSTOMER', 'VENDOR')          NOT NULL DEFAULT 'CUSTOMER' COMMENT '고객 OR 생산',
   PRIMARY KEY (CUSTOMER_ID)
 );
 
@@ -119,6 +119,7 @@ CREATE TABLE PRODUCT(
   DEV_DATE     VARCHAR(7)                         NOT NULL COMMENT 'YYYYMM',
   STATUS       ENUM ('AVAILABLE', 'DISCONTINUED') NOT NULL DEFAULT 'AVAILABLE',
   MEMO         TEXT                               NULL    ,
+  IMAGE			VARCHAR(255),
   SYS_ID       INT                                NOT NULL DEFAULT 1,
   PRIMARY KEY (PRODUCT_ID)
 );

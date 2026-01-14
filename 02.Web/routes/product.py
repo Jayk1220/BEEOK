@@ -174,3 +174,29 @@ def product_registration():
 
     # GET 요청 시
     return render_template('2.product/product_registration.html')
+
+# ------------
+#  상품 삭제 페이지
+# ------------
+
+@product_bp.route('/delete/<product_id>')
+def delete_product(product_id):
+    conn = db.engine.raw_connection() 
+    cursor = conn.cursor()
+    
+    try:
+        # 삭제 SQL 실행
+        sql = "DELETE FROM PRODUCT WHERE PRODUCT_ID = %s"
+        cursor.execute(sql, (product_id,))
+        conn.commit()
+        
+        flash(f"상품({product_id}) 정보가 삭제되었습니다.")
+    except Exception as e:
+        conn.rollback()
+        flash(f"삭제 중 오류가 발생했습니다: {str(e)}")
+    finally:
+        cursor.close()
+        conn.close()
+        
+    # 삭제 후 다시 목록 페이지로 돌아갑니다.
+    return redirect(url_for('product.list_product'))

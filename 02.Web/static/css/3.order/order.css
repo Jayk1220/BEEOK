@@ -1,0 +1,135 @@
+/* 주문 관리 시스템 전용 스타일 (기존 제품 테마 계승) */
+
+.product-wrapper { 
+    padding: 30px; 
+    background-color: var(--bg-light);
+}
+
+.page-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+}
+
+.page-header h2 {
+    font-weight: 800;
+    color: var(--main-dark);
+    margin: 0;
+}
+
+.btn-add { 
+    background-color: var(--main-color); 
+    color: var(--main-dark); 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.search-section { 
+    background: white; 
+    padding: 25px; 
+    border-radius: 12px; 
+    margin-bottom: 30px; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+}
+
+.search-form { 
+    display: grid; 
+    grid-template-columns: 1.5fr 1.5fr 1fr auto; 
+    gap: 20px; 
+    align-items: end; 
+}
+
+.search-group { display: flex; flex-direction: column; gap: 8px; }
+.search-group label { 
+    font-size: 0.9rem; 
+    font-weight: 700; 
+    color: var(--main-dark); 
+}
+
+.search-input, .search-select { 
+    padding: 10px 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 6px; 
+    width: 100%; 
+    font-size: 0.95rem;
+}
+
+.btn-search {
+    padding: 11px 30px; 
+    border: none; 
+    background: var(--main-dark); 
+    color: white; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: bold;
+}
+
+/* 테이블 스타일 */
+.product-table-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.product-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+.product-table th { 
+    background-color: #fafafa; 
+    color: var(--main-dark); 
+    padding: 15px; 
+    text-align: center; 
+    border-bottom: 2px solid var(--main-color);
+}
+
+.product-table td { 
+    padding: 15px; 
+    border-bottom: 1px solid #eee; 
+    text-align: center; 
+}
+
+/* 상태 배지 확장 */
+.status-badge { 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.8rem; 
+    font-weight: 700; 
+    display: inline-block;
+}
+
+/* 배송완료/정상: 노란색/초록색 계열 */
+.status-active { 
+    background-color: #fff9db; 
+    color: #f08c00; 
+    border: 1px solid #ffe066;
+}
+
+/* 취소/단종: 회색 계열 */
+.status-discontinued { 
+    background-color: #f1f3f5; 
+    color: #868e96; 
+}
+
+/* 대기중: 연한 파랑 */
+.status-pending {
+    background-color: #e7f5ff;
+    color: #228be6;
+    border: 1px solid #a5d8ff;
+}
+
+.btn-edit { color: #3498db; text-decoration: none; font-weight: 600; margin-right: 15px; }
+.btn-delete { color: #e74c3c; text-decoration: none; font-weight: 600; }
+
+.no-data {
+    padding: 50px !important;
+    color: #999;
+    font-style: italic;
+}

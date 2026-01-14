@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/3.order/order.css') }}">
+
+<div class="container mt-3">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-primary alert-dismissible fade show auto-dismiss shadow-sm" role="alert">
+            <i class="bi bi-info-circle me-2"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</div>
+
+<div class="product-wrapper">
+    <div class="page-header">
+        <h2>📋 주문 관리 시스템</h2>
+        <a href="#" class="btn-add">+ 수기 주문 등록</a>
+    </div>
+
+    <section class="search-section">
+        <form action="{{ url_for('order.list_order') }}" method="GET" class="search-form">
+            <div class="search-group">
+                <label>주문 번호</label>
+                <input type="text" name="order_id" class="search-input" value="{{ request.args.get('order_id', '') }}" placeholder="주문번호 입력...">
+            </div>
+
+            <div class="search-group">
+                <label>고객명 또는 ID</label>
+                <input type="text" name="names" class="search-input" value="{{ request.args.get('names', '') }}" placeholder="고객 정보 입력...">
+            </div>
+
+            <div class="search-group">
+                <label>주문 상태</label>
+                <select name="status" class="search-select">
+                    <option value="">-- 상태 전체 --</option>
+                    {% for s in status_list %}
+                        <option value="{{ s }}" {% if request.args.get('status') == s %}selected{% endif %}>
+                            {{ s }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn-search">검색</button>
+        </form>
+    </section>
+
+    <div class="product-table-container">
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>주문번호</th>
+                    <th>고객 ID</th>
+                    <th>주문 일자</th>
+                    <th>상태</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in products %}
+                <tr>
+                    <td><code>#{{ p.ORDER_ID }}</code></td>
+                    <td><strong>{{ p.CUSTOMER_ID }}</strong></td>
+                    <td>{{ p.DATE.strftime('%Y-%m-%d %H:%M') if p.DATE else '-' }}</td>
+                    <td>
+                        <span class="status-badge {% if p.STATUS == 'SHIPPED' %}status-active{% elif p.STATUS == 'CANCELLED' %}status-discontinued{% else %}status-pending{% endif %}">
+                            {{ p.STATUS }}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="#" class="btn-edit">상세보기</a>
+                            <a href="#" class="btn-delete">취소</a>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="no-data">일치하는 주문 내역이 없습니다.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

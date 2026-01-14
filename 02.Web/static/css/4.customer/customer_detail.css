@@ -1,0 +1,134 @@
+/* 상세 페이지 전용 레이아웃 분할 */
+.info-timeline-layout {
+    grid-template-columns: 1fr 1.3fr !important; /* 오른쪽 메모 영역을 더 넓게 설정 */
+    gap: 50px !important;
+    padding: 40px !important;
+}
+
+/* 읽기 전용 입력창 */
+.readonly-input {
+    background-color: #f8f9fa !important;
+    color: #868e96 !important;
+    cursor: not-allowed;
+}
+
+/* AI 요약 섹션 디자인 */
+.ai-summary-card {
+    background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+    border: 1px solid #d0e3ff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.05);
+}
+
+.no-border { border-bottom: none !important; margin-bottom: 10px !important; }
+
+.ai-content {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #334e68;
+    padding: 10px 5px;
+}
+
+.ai-footer {
+    text-align: right;
+    font-size: 0.75rem;
+    color: #9fb3c8;
+    margin-top: 10px;
+}
+
+/* 타임라인 디자인 */
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.btn-add-memo {
+    background-color: #f1f3f5;
+    border: 1px solid #dee2e6;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-add-memo:hover { background-color: #e9ecef; }
+
+.timeline-list {
+    max-height: 550px;
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+/* 타임라인 줄기 및 아이템 */
+.timeline-item {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 20px;
+    border-left: 2px solid #e9ecef;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -7px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background-color: var(--main-color, #4dabf7);
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.timeline-card {
+    background: #fff;
+    border: 1px solid #f1f3f5;
+    border-radius: 10px;
+    padding: 15px;
+    transition: transform 0.2s;
+}
+
+.timeline-card:hover { transform: translateX(5px); border-color: #dbe4ff; }
+
+.timeline-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.t-date { font-size: 0.8rem; font-weight: 800; color: #adb5bd; }
+.t-id { font-size: 0.75rem; color: #dee2e6; }
+
+.timeline-body {
+    font-size: 0.95rem;
+    color: #495057;
+    line-height: 1.5;
+}
+
+.empty-memo {
+    text-align: center;
+    padding: 50px 0;
+    color: #adb5bd;
+    font-size: 0.9rem;
+}
+
+/* 좌측 폼 액션 하단 고정 해제 */
+.info-actions {
+    background: transparent !important;
+    padding: 20px 0 0 0 !important;
+    border-top: none !important;
+}
+
+.info-actions .btn-submit { width: 100%; }
+
+/* 모바일 대응 */
+@media (max-width: 992px) {
+    .info-timeline-layout {
+        grid-template-columns: 1fr !important;
+        padding: 20px !important;
+    }
+}

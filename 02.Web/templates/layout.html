@@ -20,7 +20,7 @@
             </h1>
                 <nav class="nav-menu">
                     <a href="{{ url_for('product.list_product') }}"><i class="bi bi-box-seam me-1"></i>제품 관리</a> 
-                    <a href="#"><i class="bi bi-cart me-1"></i>주문 관리</a> 
+                    <a href="{{ url_for('order.list_order') }}"><i class="bi bi-cart me-1"></i>주문 관리</a> 
                     <a href="{{ url_for('customer.list_customer') }}"><i class="bi bi-people me-1"></i>고객 관리</a> 
                     <a href="#"><i class="bi bi-house-door me-1"></i>벌통 관리</a> 
                     <span class="ms-3 me-2 text-muted">|</span>

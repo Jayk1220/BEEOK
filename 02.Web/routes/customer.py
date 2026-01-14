@@ -123,7 +123,7 @@ def delete_customer(customer_id):
 #  고객 등록 페이지
 # ------------
 
-@customer_bp.route('/register', methods=['GET', 'POST'])
+@customer_bp.route('/registration', methods=['GET', 'POST'])
 def customer_registration():
     class_list = get_enum('CUSTOMER', 'CLASS') # DB에서 ENUM 목록 가져오기
 
@@ -162,7 +162,7 @@ def customer_registration():
                             CUSTOMER_ID, COMPANY_NAME, BUSINESS_NO, CONTACT_PERSON, CONTACT, 
                             EMAIL, COUNTRY, ADDRESS, BANK, ACCOUNT_NO, 
                             ACCOUNT_NAME, REG_DATE, MEMO, STATUS, CLASS
-                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     """
                     
             cursor.execute(sql, (
@@ -189,3 +189,36 @@ def customer_registration():
     return render_template('4.customer/customer_registration.html',
                             class_list=class_list)
 
+
+# ------------
+#  고객 상세 페이지
+# ------------
+@customer_bp.route('/<customer_id>', methods=['GET', 'POST'])
+def customer_info(customer_id):
+    conn = db.engine.raw_connection()
+    cursor = conn.cursor(pymysql.cursors.DictCursor)
+
+    try:
+        # 고객 정보 조회
+        cursor.execute("SELECT * FROM CUSTOMER WHERE CUSTOMER_ID = %s", (customer_id))
+        customer = cursor.fetchone()
+
+        if not customer:
+            abort(404)
+
+        memo_sql = memo_sql = """
+            SELECT MEMO_TEXT, DATE, SYS_ID 
+            FROM CUSTOMER_MEMO 
+            WHERE CUSTOMER_ID = %s 
+            ORDER BY DATE DESC
+        """
+        cursor.execute(memo_sql, (customer_id,))
+        memos = cursor.fetchall()
+
+    finally:
+        cursor.close()
+        conn.close()
+        
+    return render_template('4.customer/customer_detail.html',
+                           
+                                                        memos=memos)

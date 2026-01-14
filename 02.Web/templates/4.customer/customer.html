@@ -87,7 +87,7 @@
                     </td>
                     <td>
                         <div class="action-buttons">
-                            <a href="#" class="btn-detail">상세</a>
+                            <a href="{{ url_for('customer.customer_info', customer_id=c.CUSTOMER_ID) }}" class="btn-detail">상세</a>
                             <a href="{{ url_for('customer.delete_customer', customer_id=c.CUSTOMER_ID) }}" class="btn-delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                         </div>
                     </td>
