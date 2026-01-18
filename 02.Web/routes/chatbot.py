@@ -30,7 +30,7 @@ def search_web(query: str) -> str:
 
 def chatbot(user_msg):
     try:
-        target_model = 'llama3.1'
+        target_model = 'exaone3.5:7.8b'
         connected = is_connected()
         now_str = datetime.now().strftime("%Y-%m-%d %A")
 

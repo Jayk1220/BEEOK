@@ -58,7 +58,8 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>상호명 / 담당자</th>
+                    <th>상호명</th>
+                    <th>담당자</th>
                     <th>연락처 / 이메일</th>
                     <th>등록일</th>
                     <th>구분</th>
@@ -70,12 +71,9 @@
                 {% for c in customers %}
                 <tr>
                     <td><code>{{ c.CUSTOMER_ID }}</code></td>
-                    <td style="text-align: center;">
-                        <strong>{{ c.COMPANY_NAME or '-' }}</strong><br>
-                        <small class="text-muted">{{ c.CONTACT_PERSON }}</small>
-                    </td>
-                    <td>
-                        {{ c.CONTACT }}<br>
+                    <td style="text-align: center;"> {{ c.COMPANY_NAME or '-' }}</td>
+                    <td style="text-align: center;"> {{ c.CONTACT_PERSON }}</td>
+                    <td> {{ c.CONTACT }}<br>
                         <small class="text-muted">{{ c.EMAIL or '-' }}</small>
                     </td>
                     <td>{{ c.REG_DATE }}</td>
@@ -94,7 +92,7 @@
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="7" class="py-5 text-muted">일치하는 고객 정보가 없습니다.</td>
+                    <td colspan="8" class="py-5 text-muted">일치하는 고객 정보가 없습니다.</td>
                 </tr>
                 {% endfor %}
             </tbody>

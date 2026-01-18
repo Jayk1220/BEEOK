@@ -29,6 +29,11 @@ def get_enum(table, column):
 
 @product_bp.route('/')
 def list_product():
+    # 1. 페이지 번호 파라미터 받기 (기본값 1)
+    page = request.args.get('page', 1, type=int)
+    per_page = 10
+    offset = (page - 1) * per_page
+
     #검색창 조건
     names = request.args.get('names','') # ID, 제품명 검색
     target = request.args.get('target','') # 타겟 해충
@@ -42,26 +47,30 @@ def list_product():
     cursor = conn.cursor(pymysql.cursors.DictCursor)
 
 
-    # 제품 목록 쿼리
-    sql = "SELECT PRODUCT_ID, PRODUCT_NAME, TARGET, PRICE_KOR, STATUS, DEV_DATE" \
-    " FROM PRODUCT WHERE 1=1"
-    params = []
-
-    #검색어 조건 추가
-    #이름/ID
-    if names :
-        sql += " AND (PRODUCT_NAME LIKE %s OR PRODUCT_ID LIKE %s)"
-        params.extend([f"%{names}%",f"%{names}%"])
-    # 해충
-    if target:
-        sql += " AND TARGET LIKE %s"
-        params.append(f"%{target}%")
-    # 상태
-    if status:
-        sql += " AND STATUS = %s"
-        params.append(status)
+# --- A. 전체 데이터 개수 조회 (페이지네이션 계산용) ---
+    count_sql = "SELECT COUNT(*) as cnt FROM PRODUCT WHERE 1=1"
+    count_params = []
     
-    sql += " ORDER BY DEV_DATE DESC"
+    if names:
+        count_sql += " AND (PRODUCT_NAME LIKE %s OR PRODUCT_ID LIKE %s)"
+        count_params.extend([f"%{names}%", f"%{names}%"])
+    if target:
+        count_sql += " AND TARGET LIKE %s"
+        count_params.append(f"%{target}%")
+    if status:
+        count_sql += " AND STATUS = %s"
+        count_params.append(status)
+
+    cursor.execute(count_sql, count_params)
+    total_count = cursor.fetchone()['cnt']
+    total_pages = (total_count + per_page - 1) // per_page  # 올림 계산
+
+    # --- B. 현재 페이지 데이터 조회 ---
+    sql = "SELECT PRODUCT_ID, PRODUCT_NAME, TARGET, PRICE_KOR, STATUS, DEV_DATE FROM PRODUCT WHERE 1=1"
+    params = list(count_params) # 위에서 사용한 검색 조건 복사
+    
+    sql += " ORDER BY DEV_DATE DESC LIMIT %s OFFSET %s"
+    params.extend([per_page, offset])
     
     # 실행
     cursor.execute(sql, params)
@@ -71,7 +80,10 @@ def list_product():
     conn.close()
     
     return render_template('2.product/product.html', products=products,
-                                                    status_list=status_list)
+                                                    status_list=status_list,
+                                                    page=page,
+                                                    total_pages=total_pages,
+                                                    total_count=total_count)
 
 # ------------
 #  제품 상세 페이지
